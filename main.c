@@ -11,20 +11,17 @@ void hash_heap(const EVP_MD *md, void *dst, const void *src, const size_t size)
 	EVP_MD_CTX *ctx = EVP_MD_CTX_new();
 	unsigned int len = 0;
 
-	if (EVP_DigestInit_ex(ctx, md, NULL) == false)
-	{
+	if (EVP_DigestInit_ex(ctx, md, NULL) == false) {
 		printf("EVP_DigestInit_ex() failed!\n");
 		goto cleanup;
 	}
 
-	if (EVP_DigestUpdate(ctx, src, size) == false)
-	{
+	if (EVP_DigestUpdate(ctx, src, size) == false) {
 		printf("EVP_DigestUpdate() failed!\n");
 		goto cleanup;
 	}
 
-	if (EVP_DigestFinal_ex(ctx, dst, &len) == false)
-	{
+	if (EVP_DigestFinal_ex(ctx, dst, &len) == false) {
 		printf("EVP_DigestFinal_ex() failed!\n");
 		goto cleanup;
 	}
@@ -42,20 +39,17 @@ void hash_stack(const EVP_MD *md, void *dst, const void *src, const size_t size)
 	EVP_MD_CTX ctx;
 	unsigned int len = 0;
 
-	if (EVP_DigestInit_ex(&ctx, md, NULL) == false)
-	{
+	if (EVP_DigestInit_ex(&ctx, md, NULL) == false) {
 		printf("EVP_DigestInit_ex() failed!\n");
 		return;
 	}
 
-	if (EVP_DigestUpdate(&ctx, src, size) == false)
-	{
+	if (EVP_DigestUpdate(&ctx, src, size) == false) {
 		printf("EVP_DigestUpdate() failed!\n");
 		return;
 	}
 
-	if (EVP_DigestFinal_ex(&ctx, dst, &len) == false)
-	{
+	if (EVP_DigestFinal_ex(&ctx, dst, &len) == false) {
 		printf("EVP_DigestFinal_ex() failed!\n");
 		return;
 	}
