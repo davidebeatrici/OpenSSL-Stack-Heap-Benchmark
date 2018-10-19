@@ -8,8 +8,9 @@
 
 void hash_heap(const EVP_MD *md, void *dst, const void *src, const size_t size)
 {
-	EVP_MD_CTX *ctx = EVP_MD_CTX_new();
 	unsigned int len = 0;
+	EVP_MD_CTX *ctx = EVP_MD_CTX_new();
+	EVP_MD_CTX_set_flags(ctx, EVP_MD_CTX_FLAG_ONESHOT | EVP_MD_CTX_FLAG_FINALISE);
 
 	if (EVP_DigestInit_ex(ctx, md, NULL) == false) {
 		printf("EVP_DigestInit_ex() failed!\n");
