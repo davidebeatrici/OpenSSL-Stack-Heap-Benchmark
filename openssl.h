@@ -10,6 +10,7 @@
 #ifndef OPENSSL_H
 #define OPENSSL_H
 
+#include <openssl/err.h>
 #include <openssl/evp.h>
 #include <openssl/sha.h>
 

@@ -13,17 +13,17 @@ void hash_heap(const EVP_MD *md, void *dst, const void *src, const size_t size)
 	EVP_MD_CTX_set_flags(ctx, EVP_MD_CTX_FLAG_ONESHOT | EVP_MD_CTX_FLAG_FINALISE);
 
 	if (EVP_DigestInit_ex(ctx, md, NULL) == false) {
-		printf("EVP_DigestInit_ex() failed!\n");
+		printf("EVP_DigestInit_ex() failed! Error: %s\n", ERR_error_string(ERR_get_error(), NULL));
 		goto cleanup;
 	}
 
 	if (EVP_DigestUpdate(ctx, src, size) == false) {
-		printf("EVP_DigestUpdate() failed!\n");
+		printf("EVP_DigestUpdate() failed! Error: %s\n", ERR_error_string(ERR_get_error(), NULL));
 		goto cleanup;
 	}
 
 	if (EVP_DigestFinal_ex(ctx, dst, &len) == false) {
-		printf("EVP_DigestFinal_ex() failed!\n");
+		printf("EVP_DigestFinal_ex() failed! Error: %s\n", ERR_error_string(ERR_get_error(), NULL));
 		goto cleanup;
 	}
 
@@ -41,17 +41,17 @@ void hash_stack(const EVP_MD *md, void *dst, const void *src, const size_t size)
 	unsigned int len = 0;
 
 	if (EVP_DigestInit_ex(&ctx, md, NULL) == false) {
-		printf("EVP_DigestInit_ex() failed!\n");
+		printf("EVP_DigestInit_ex() failed! Error: %s\n", ERR_error_string(ERR_get_error(), NULL));
 		return;
 	}
 
 	if (EVP_DigestUpdate(&ctx, src, size) == false) {
-		printf("EVP_DigestUpdate() failed!\n");
+		printf("EVP_DigestUpdate() failed! Error: %s\n", ERR_error_string(ERR_get_error(), NULL));
 		return;
 	}
 
 	if (EVP_DigestFinal_ex(&ctx, dst, &len) == false) {
-		printf("EVP_DigestFinal_ex() failed!\n");
+		printf("EVP_DigestFinal_ex() failed! Error: %s\n", ERR_error_string(ERR_get_error(), NULL));
 		return;
 	}
 
@@ -64,7 +64,7 @@ double seconds()
 {
 	struct timespec ts;
 	if (clock_gettime(CLOCK_MONOTONIC_RAW, &ts) == -1) {
-		printf("seconds(): clock_gettime() failed!");
+		printf("seconds(): clock_gettime() failed!\n");
 	}
 
 	return (double)ts.tv_sec + (double)ts.tv_nsec / 1000000000.0;
